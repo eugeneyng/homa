@@ -1,7 +1,7 @@
 
 import React from "react";
 
-class Login extends React.Component {
+class Places extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -11,10 +11,10 @@ class Login extends React.Component {
   render() {
     return (
       <div>
-        <h1>this is the Login page</h1>
+        <h1>this is the Places page</h1>
       </div>
     )
   }
 }
 
-export default Login;
+export default Places;

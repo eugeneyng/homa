@@ -11,12 +11,21 @@ class Homa extends React.Component {
     };
   }
 
+  places = [
+    { id: "1", address: "24 Skylark" },
+    { id: "2", address: "5502 Burning Ridge" }
+  ]
+
   render() {
     return (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Pages.Home />} />
+          <Route path="places" element={<Pages.Places />} >
+            <Route path=":placeId" element={<Pages.Place />} />
+          </Route>
           <Route path="login" element={<Pages.Login />} />
+          <Route path="*" element={<Pages.NotFound />} />
         </Routes>
       </BrowserRouter>
     )
