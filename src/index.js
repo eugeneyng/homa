@@ -3,6 +3,12 @@ import * as ReactDOMClient from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 
 import * as Pages from "./pages"
+import * as Auth from "./utilities"
+
+const places = [
+  { id: "1", address: "24 Skylark" },
+  { id: "2", address: "5502 Burning Ridge" }
+]
 
 class Homa extends React.Component {
   constructor(props) {
@@ -10,11 +16,6 @@ class Homa extends React.Component {
     this.state = {
     };
   }
-
-  places = [
-    { id: "1", address: "24 Skylark" },
-    { id: "2", address: "5502 Burning Ridge" }
-  ]
 
   render() {
     return (
