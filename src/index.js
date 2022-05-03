@@ -2,8 +2,7 @@ import * as React from "react";
 import * as ReactDOMClient from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 
-import Homes from "./pages/homes.js";
-import Login from "./pages/login.js";
+import * as Pages from "./pages"
 
 class Homa extends React.Component {
   constructor(props) {
@@ -16,8 +15,8 @@ class Homa extends React.Component {
     return (
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Homes />} />
-          <Route path="login" element={<Login />} />
+          <Route path="/" element={<Pages.Home />} />
+          <Route path="login" element={<Pages.Login />} />
         </Routes>
       </BrowserRouter>
     )
