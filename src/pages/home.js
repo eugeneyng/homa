@@ -10,9 +10,6 @@ class Home extends React.Component {
     };
   }
 
-  // TODO: change logo
-  // TODO: navbar burger not working
-
   render() {
     return (
       <section className="hero has-background-dark is-fullheight">

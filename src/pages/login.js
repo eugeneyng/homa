@@ -5,11 +5,15 @@ import { faEnvelope, faKey } from "@fortawesome/free-solid-svg-icons"
 
 import * as Components from "../components";
 
+import * as Utilities from "../utilities";
+
 class Login extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-    };
+  }
+
+  attemptLogin() {
+    console.log("Attempting to login ...")
   }
 
   render() {
@@ -40,7 +44,12 @@ class Login extends React.Component {
                       </span>
                     </div>
                   </div>
-                  <div className="button is-rounded is-outlined">Login</div>
+                  <div 
+                    className="button is-rounded is-outlined"
+                    onClick={this.attemptLogin}
+                  >
+                    Login
+                  </div>
                 </div>
               </div>
             </div>

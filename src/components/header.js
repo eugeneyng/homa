@@ -6,8 +6,10 @@ export default function Header() {
 
   function toggleBurgerMenu() {
     document.querySelector('.navbar-menu').classList.toggle('is-active');
-    document.querySelector('.navbar-item').classList.toggle('has-background-dark');
   }
+
+  // TODO: change logo
+  // TODO: fix colors in active burger
   
   return (
     <div className="hero-head">
