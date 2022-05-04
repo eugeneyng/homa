@@ -25,6 +25,8 @@ function PlacesGrid() {
     {id: 2, address: "address 2"}
   ]
 
+  // http://react.tips/how-to-create-reactjs-components-dynamically/
+
   function createTile(place) {
     return (
       <div className="tile is-parent is-3 is-justify-content-start" key={place["id"]}>

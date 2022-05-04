@@ -66,14 +66,6 @@ This project is **for people who have difficulty remembering details about their
  * Homa is not a smart assistant. It won’t guess what you want to do. It’s actually pretty dumb: it will only send you emails for the things you asked to be reminded of.
  * Homa is not a tool that will scan your data and do nasty things with it. It’s your data, your server, do whatever you want with it. You’re in control of your data.
 
-### Where does this tool come from?
-
-I originally built this tool to help me in my private life: I’ve been living outside my own country for a long time now. I want to keep notes and remember the life of my friends in my home country and be able to ask the relevant questions when I email them or talk to them over the phone.
-
-Moreover, as a foreigner in my new country, I met a lot of other foreigners – and most go back to their countries. I still want to remember the names or ages of their kids. You may call it cheating but considering my poor memory, I call it caring.
-
-After a few months, I decided to open source Homa so it could help other people as well.
-
 ## Get started
 
 There are multiple ways of getting started with Homa:
