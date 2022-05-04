@@ -41,7 +41,7 @@ export default function Header() {
   
   return (
     <div className="hero-head">
-      <nav className="navbar">
+      <nav className="navbar has-background-dark">
         <div className="container">
           <div className="navbar-brand">
             <a className="navbar-item" href="/">
@@ -53,7 +53,7 @@ export default function Header() {
               <span></span>
             </span>
           </div>
-          <div id="navbarMenuHeroA" className="navbar-menu">
+          <div id="navbarMenuHeroA" className="navbar-menu has-background-dark">
             <div className="navbar-end">
               {<LogInOrLogOut />}
               <span className="navbar-item">

@@ -1,4 +1,5 @@
 // see : https://stackoverflow.com/questions/62384395/protected-route-with-react-router-v6
+// see : https://www.digitalocean.com/community/tutorials/how-to-add-login-authentication-to-react-applications
 
 import * as React from "react";
 import { Navigate, Outlet, useLocation } from "react-router-dom"
