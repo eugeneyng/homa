@@ -1,1 +1,1 @@
-export { default as Auth, FakeAuth } from "./auth";
+export { default as AuthProvider, AuthContext, FakeAuthProvider } from "./auth";

@@ -1,20 +1,16 @@
 
 import React from "react";
+import * as Utilities from "../utilities";
 
-class Places extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-    };
-  }
+function Places() {
 
-  render() {
-    return (
-      <div>
-        <h1>this is the Places page</h1>
-      </div>
-    )
-  }
+  let auth = React.useContext(Utilities.AuthContext);
+  console.log(auth);
+
+  return (
+    <h1>this is the Places page</h1>
+  )
+
 }
 
 export default Places;

@@ -1,8 +1,28 @@
+import * as React from "react";
 
-export const FakeAuth = () =>
-new Promise((resolve) => {
-  setTimeout(() => resolve('random'), 250);
-});
+export let AuthContext = React.createContext();
 
-const Auth = "authenticated";
-export default Auth;
+function AuthProvider() {
+  console.log("AuthProvider")
+}
+
+export function FakeAuthProvider( {children} ) {
+
+  let [user, setUser] = React.useState();
+
+  function signIn(newUser, callback = () => {return null;} ) {
+    setUser(newUser)
+    setTimeout(callback, 100); // fake async
+  }
+  
+  function signOut(callback = () => {return null;} ) {
+    setUser(null)
+    setTimeout(callback, 100); // fake async
+  }
+
+  let value = { user, signIn, signOut }
+
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+};
+
+export default AuthProvider;
