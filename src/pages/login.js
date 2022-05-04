@@ -41,7 +41,7 @@ function Login() {
           <div className="container has-text-centered">
             <div className="columns is-centered">
               <div className="column is-half">
-                <form className="form notification" onSubmit={(event) => attemptLogin(event)}>
+                <form className="form box" onSubmit={(event) => attemptLogin(event)}>
                   <div>
                     <label className="label">Email</label>
                     <div className="control has-icons-left">
