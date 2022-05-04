@@ -6,6 +6,7 @@ import * as Components from "../components";
 function Home() {
 
   return (
+
     <section className="hero has-background-dark is-fullheight">
       {<Components.Header/>}
 

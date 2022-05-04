@@ -1,6 +1,10 @@
 
+import React from "react";
+import "bulma"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faGithub } from "@fortawesome/free-brands-svg-icons"
+
+import * as Utilities from "../utilities";
 
 export default function Header() {
 
@@ -10,6 +14,30 @@ export default function Header() {
 
   // TODO: change logo
   // TODO: fix colors in active burger
+
+  let auth = React.useContext(Utilities.Auth.AuthContext);
+
+  function LogInOrLogOut() {
+
+    if (auth.user) {
+      return (
+        <div>
+          <a className="navbar-item has-text-light" href="/places">
+            Dashboard
+          </a>
+          <a className="navbar-item has-text-light" href="/" onClick={() => auth.signOut()}>
+            Log Out
+          </a>
+        </div>
+      )
+    } else if (!auth.user) {
+      return (
+        <a className="navbar-item has-text-light" href="/login">
+          Login
+        </a>
+      )
+    }
+  }
   
   return (
     <div className="hero-head">
@@ -27,9 +55,7 @@ export default function Header() {
           </div>
           <div id="navbarMenuHeroA" className="navbar-menu">
             <div className="navbar-end">
-              <a className="navbar-item has-text-light" href="/login">
-                Login
-              </a>
+              {<LogInOrLogOut />}
               <span className="navbar-item">
                 <a className="button is-inverted" href="https://github.com/eugeneyng/homa">
                   <span className="icon">

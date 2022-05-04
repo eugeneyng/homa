@@ -1,28 +1,56 @@
+// see : https://stackoverflow.com/questions/62384395/protected-route-with-react-router-v6
+
 import * as React from "react";
+import { Navigate, Outlet, useLocation } from "react-router-dom"
+
+export class User {
+
+  constructor(id, password) {
+    this.id = id;
+    this.password = password;
+  }
+}
 
 export let AuthContext = React.createContext();
 
-function AuthProvider() {
-  console.log("AuthProvider")
+export function RequireAuth() {
+  let auth = React.useContext(AuthContext);
+  let location = useLocation()
+
+  if (!auth.user) {
+    return <Navigate to="/login" state={{ from: location }} />;
+  }
+
+  return <Outlet />
 }
 
-export function FakeAuthProvider( {children} ) {
+export function AuthProvider( {children} ) {
 
-  let [user, setUser] = React.useState();
+  const [user, setUser] = React.useState(getUser());
+
+  function getUser() {
+    const userString = localStorage.getItem("user");
+    const userObj = JSON.parse(userString);
+    return userObj;
+  }
+
+  const saveUser = user => {
+    localStorage.setItem("user", JSON.stringify(user));
+    setUser(user);
+  }
 
   function signIn(newUser, callback = () => {return null;} ) {
-    setUser(newUser)
-    setTimeout(callback, 100); // fake async
-  }
-  
-  function signOut(callback = () => {return null;} ) {
-    setUser(null)
+    saveUser(newUser);
     setTimeout(callback, 100); // fake async
   }
 
-  let value = { user, signIn, signOut }
+  function signOut(callback = () => {return null;} ) {
+    setUser(null);
+    localStorage.clear();
+    setTimeout(callback, 100); // fake async
+  }
+
+  let value = { user, signIn, getUser, signOut }
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
-
-export default AuthProvider;
