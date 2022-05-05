@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom"
 
 import { DashboardNav, Place } from "../components";
 
-let thisplace = new Place(1, "eugene", "Address 1")
+let thisplace = new Place(1, "Address 1")
 
 export default function PlacePage() {
 
