@@ -1,35 +1,29 @@
 import React from "react";
-import { useLocation, useNavigate, Navigate } from "react-router-dom"
+import { Navigate } from "react-router-dom"
 import "bulma";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faEnvelope, faKey } from "@fortawesome/free-solid-svg-icons"
+import { faUser, faKey } from "@fortawesome/free-solid-svg-icons"
 
 import * as Components from "../components";
 import * as Utilities  from "../utilities";
 
-// TODO: replace with Formik
+// TODO: replace with Formik so that we get all the validation rules that come with it
 
 function Login() {
 
   const [username, setUserName] = React.useState();
   const [password, setPassword] = React.useState();
 
-  let location = useLocation();
-  let navigate = useNavigate();
-
   let auth = React.useContext(Utilities.Auth.AuthContext);
-  let state = location.state;
-  let from = state ? state.from.pathname : '/places';
 
   function attemptLogin(event) {
 
-    event.preventDefault(); // Apparently the default behavior is to refresh the entire page: https://stackoverflow.com/questions/50193227/basic-react-form-submit-refreshes-entire-page
+    // event.preventDefault(); // Apparently the default behavior is to refresh the entire page: https://stackoverflow.com/questions/50193227/basic-react-form-submit-refreshes-entire-page
 
     let user = new Components.User(username, password)
 
-    auth.signIn(user, () => {
-      navigate(from, { replace: true });
-    })
+    auth.signIn(user);
+
   }
 
   if (!auth.user) {
@@ -47,7 +41,7 @@ function Login() {
                     <div className="control has-icons-left">
                       <input className="input" type="text" placeholder="username" id="username" onChange={(event) => setUserName(event.target.value)}></input>
                       <span className="icon is-left">
-                        <FontAwesomeIcon icon={faEnvelope} />
+                        <FontAwesomeIcon icon={faUser} />
                       </span>
                     </div>
                   </div>
@@ -69,7 +63,9 @@ function Login() {
       </div>
     )
   } else {
-    <Navigate replace to="/places" />
+    return (
+      <Navigate replace to="/places" />
+    )
   }
 }
 

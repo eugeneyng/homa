@@ -1,35 +1,30 @@
 import React from "react";
-import { useLocation, useNavigate, Navigate } from "react-router-dom"
+import { Navigate } from "react-router-dom"
 import "bulma";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faEnvelope, faKey } from "@fortawesome/free-solid-svg-icons"
+import { faEnvelope, faKey, faUser } from "@fortawesome/free-solid-svg-icons"
 
 import * as Components from "../components";
 import * as Utilities  from "../utilities";
 
-// TODO: replace with Formik
+// TODO: replace with Formik to get all the validation rules that come with it
 
 function Register() {
 
   const [username, setUserName] = React.useState();
+  const [email, setEmail] = React.useState();
   const [password, setPassword] = React.useState();
 
-  let location = useLocation();
-  let navigate = useNavigate();
-
   let auth = React.useContext(Utilities.Auth.AuthContext);
-  let state = location.state;
-  let from = state ? state.from.pathname : '/places';
 
   function attemptRegister(event) {
 
     event.preventDefault(); // Apparently the default behavior is to refresh the entire page: https://stackoverflow.com/questions/50193227/basic-react-form-submit-refreshes-entire-page
 
     let user = new Components.User(username, password)
+    user.email = email;
 
-    auth.signIn(user, () => {
-      navigate(from, { replace: true });
-    })
+    auth.registerUser(user)
   }
 
   if (!auth.user) {
@@ -47,6 +42,15 @@ function Register() {
                     <div className="control has-icons-left">
                       <input className="input" type="text" placeholder="username" id="username" onChange={(event) => setUserName(event.target.value)}></input>
                       <span className="icon is-left">
+                        <FontAwesomeIcon icon={faUser} />
+                      </span>
+                    </div>
+                  </div>
+                  <div>
+                    <label className="label">Email</label>
+                    <div className="control has-icons-left">
+                      <input className="input" type="text" placeholder="email" id="email" onChange={(event) => setEmail(event.target.value)}></input>
+                      <span className="icon is-left">
                         <FontAwesomeIcon icon={faEnvelope} />
                       </span>
                     </div>
@@ -54,13 +58,13 @@ function Register() {
                   <div>
                     <label className="label">Password</label>
                     <div className="control has-icons-left">
-                      <input className="input" type="password" placeholder="Password" id="password" onChange={(event) => setPassword(event.target.value)}></input>
+                      <input className="input" type="password" placeholder="password" id="password" onChange={(event) => setPassword(event.target.value)}></input>
                       <span className="icon is-left">
                         <FontAwesomeIcon icon={faKey} />
                       </span>
                     </div>
                   </div>
-                  <button className="button is-rounded is-outlined" type="submit">Login</button>
+                  <button className="button is-rounded is-outlined" type="submit">Register</button>
                 </form>
               </div>
             </div>
@@ -69,7 +73,9 @@ function Register() {
       </div>
     )
   } else {
-    <Navigate replace to="/places" />
+    return (
+      <Navigate to="/places" />
+    )
   }
 }
 

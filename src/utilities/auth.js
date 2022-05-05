@@ -3,6 +3,7 @@
 
 import * as React from "react";
 import { Navigate, Outlet, useLocation } from "react-router-dom"
+import * as Parse from "parse";
 
 export let AuthContext = React.createContext();
 
@@ -19,15 +20,29 @@ export function RequireAuth() {
 
 export function AuthProvider( {children} ) {
 
+  Parse.initialize("id");
+  Parse.serverURL = "https://parse.eugene.ng/parse"
   const [user, setUser] = React.useState(getUser());
 
-  function getUser() {
-    const userString = localStorage.getItem("user");
-    const userObj = JSON.parse(userString);
-    return userObj;
+  function registerUser(user) {
+    const parseUser = new Parse.User();
+    parseUser.set("username", user.username);
+    parseUser.set("password", user.password);
+    parseUser.set("email", user.email);
+
+    parseUser.signUp().then(() => {
+      signIn(user);
+    }).catch(error => {
+      console.log("Error: " + error.code + " " + error.message)
+      setUser(null);
+    })
   }
 
-  const saveUser = user => {
+  function getUser() {
+    return Parse.User.current();
+  }
+
+  function saveUser(user) {
     localStorage.setItem("user", JSON.stringify(user));
     setUser(user);
   }
@@ -43,7 +58,7 @@ export function AuthProvider( {children} ) {
     setTimeout(callback, 100); // fake async
   }
 
-  let value = { user, signIn, getUser, signOut }
+  let value = { user, getUser, registerUser, signIn, signOut }
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
