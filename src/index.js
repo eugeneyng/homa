@@ -13,6 +13,7 @@ function Homa () {
         <Routes>
           <Route path="/" element={<Pages.Home />} />
           <Route path="login" element={<Pages.Login />} />
+          <Route path="register" element={<Pages.Register />} />
           <Route path="*" element={<Pages.FourZeroFour />} />
           <Route element={<Utilities.Auth.RequireAuth />}>
             <Route path="places" element={<Pages.Places />} />

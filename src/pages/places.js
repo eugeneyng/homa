@@ -2,15 +2,12 @@
 import React from "react";
 import { Link } from "react-router-dom"
 
-import * as Utilities from "../utilities";
+import { DashboardNav } from "../components";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faBell, faUser, faPlus } from "@fortawesome/free-solid-svg-icons"
+import { faPlus } from "@fortawesome/free-solid-svg-icons"
 
 function Places() {
-
-  let auth = React.useContext(Utilities.Auth.AuthContext);
-  console.log(auth);
 
   return (
     <div>
@@ -59,34 +56,6 @@ function PlacesGrid() {
     </div>
   )
 
-}
-
-export function DashboardNav() {
-  return (
-    <div className="level has-background-black is-mobile">
-        <div className="level-left">
-          <a className="navbar-item" href="/">
-            <img src={window.location.origin + "/logo192.png"} alt="Logo"></img>
-          </a>
-        </div>
-        <div className="level-right">
-          <div className="navbar-item">
-              <a className="navbar-item" href="#/"> {/* https://www.querythreads.com/react-site-warning-the-href-attribute-requires-a-valid-address-provide-a-valid-navigable-address-as-the-href-value-jsx-a11y-anchor-is-valid/ */}
-                <span className="icon">
-                  <FontAwesomeIcon icon={faBell} />
-                </span>
-              </a>
-            </div>
-          <div className="navbar-item">
-            <a className="navbar-item" href="#/">
-              <span className="icon">
-                <FontAwesomeIcon icon={faUser} />
-              </span>
-            </a>
-          </div>
-        </div>
-    </div>
-  )
 }
 
 export default Places;

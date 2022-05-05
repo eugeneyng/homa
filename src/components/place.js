@@ -1,11 +1,19 @@
 
 export default class Place {
 
-  constructor(id, ownerId, name) {
+  defaultRooms = [
+    "Attic", "Bedroom", "Kitchen", "Living Room",
+  ]
+
+  constructor(id, name) {
     this.id = id;
-    this.ownerId = ownerId;
     this.name = name;
   }
+
+  permissions = [
+    {"eugene": "rw"},
+    {"morgan": "r"}
+  ]
 
   addRoom(room) {
     this.rooms.push(room)

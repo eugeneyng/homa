@@ -4,5 +4,10 @@ export default class User {
     this.id = id;
     this.password = password;
   }
-  
+
+  places = [
+    {id: 1, name: "address 1"},
+    {id: 2, name: "address 2"}
+  ];
+
 }

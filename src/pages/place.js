@@ -1,9 +1,7 @@
 import React from "react"
 import { useParams } from "react-router-dom"
 
-import { Place } from "../components";
-
-import { DashboardNav } from "./places"
+import { DashboardNav, Place } from "../components";
 
 let thisplace = new Place(1, "eugene", "Address 1")
 
@@ -16,6 +14,7 @@ export default function PlacePage() {
     <div>
       <DashboardNav />
       <h1>{thisplace.name}</h1>
+      <h1>{place}</h1>
     </div>
   )
   
