@@ -34,7 +34,7 @@ function PlacesGrid() {
 
     return (
       <div className="tile is-parent is-3 is-justify-content-start" key={place["id"]}>
-        <Link to={"place/" + place["id"]} reloadDocument className="tile is-child is-flex is-justify-content-center box has-background-grey-dark has-text-light">
+        <Link to={"place/" + place["id"]} className="tile is-child is-flex is-justify-content-center box has-background-grey-dark has-text-light">
           {place["address"]}
         </Link>
       </div>
