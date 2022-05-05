@@ -21,20 +21,38 @@ export default function Header() {
 
     if (auth.user) {
       return (
-        <div>
+        <div className="level">
           <a className="navbar-item has-text-light" href="/places">
             Dashboard
           </a>
           <a className="navbar-item has-text-light" href="/" onClick={() => auth.signOut()}>
             Log Out
           </a>
+          <span className="navbar-item">
+            <a className="button is-inverted" href="https://github.com/eugeneyng/homa">
+              <span className="icon">
+                <FontAwesomeIcon icon={faGithub} />
+              </span>
+              <span>Source</span>
+            </a>
+          </span>
         </div>
       )
     } else if (!auth.user) {
       return (
-        <a className="navbar-item has-text-light" href="/login">
-          Login
-        </a>
+        <div className="level">
+          <a className="navbar-item has-text-light" href="/login">
+            Login
+          </a>
+          <span className="navbar-item">
+            <a className="button is-inverted" href="https://github.com/eugeneyng/homa">
+              <span className="icon">
+                <FontAwesomeIcon icon={faGithub} />
+              </span>
+              <span>Source</span>
+            </a>
+          </span>
+        </div>
       )
     }
   }
@@ -56,14 +74,6 @@ export default function Header() {
           <div id="navbarMenuHeroA" className="navbar-menu has-background-dark">
             <div className="navbar-end">
               {<LogInOrLogOut />}
-              <span className="navbar-item">
-                <a className="button is-inverted" href="https://github.com/eugeneyng/homa">
-                  <span className="icon">
-                    <FontAwesomeIcon icon={faGithub} />
-                  </span>
-                  <span>Source</span>
-                </a>
-              </span>
             </div>
           </div>
         </div>

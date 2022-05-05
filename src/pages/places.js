@@ -1,5 +1,7 @@
 
 import React from "react";
+import { Link } from "react-router-dom"
+
 import * as Utilities from "../utilities";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
@@ -14,6 +16,7 @@ function Places() {
     <div>
       {<DashboardNav />}
       {<PlacesGrid />}
+      {/* <Outlet /> */}
     </div>
   )
 }
@@ -28,11 +31,12 @@ function PlacesGrid() {
   // http://react.tips/how-to-create-reactjs-components-dynamically/
 
   function createTile(place) {
+
     return (
       <div className="tile is-parent is-3 is-justify-content-start" key={place["id"]}>
-        <a className="tile is-child is-flex is-justify-content-center box has-background-grey-dark has-text-light" href="#/">
+        <Link to={"place/" + place["id"]} reloadDocument className="tile is-child is-flex is-justify-content-center box has-background-grey-dark has-text-light">
           {place["address"]}
-        </a>
+        </Link>
       </div>
     )
   }
@@ -63,7 +67,7 @@ function DashboardNav() {
     <div className="level has-background-black is-mobile">
         <div className="level-left">
           <a className="navbar-item" href="/">
-            <img src="./logo192.png" alt="Logo"></img>
+            <img src="../logo192.png" alt="Logo"></img>
           </a>
         </div>
         <div className="level-right">

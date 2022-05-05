@@ -15,7 +15,9 @@ function Homa () {
           <Route path="login" element={<Pages.Login />} />
           <Route path="*" element={<Pages.FourZeroFour />} />
           <Route element={<Utilities.Auth.RequireAuth />}>
-            <Route path="places" element={<Pages.Places />} />
+            <Route path="places" element={<Pages.Places />} >
+              <Route path="place/:id" element={<Pages.Place />} />
+            </Route>
           </Route>
         </Routes>
       </BrowserRouter>
