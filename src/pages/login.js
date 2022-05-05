@@ -11,7 +11,7 @@ import * as Utilities  from "../utilities";
 
 function Login() {
 
-  const [email, setEmail] = React.useState();
+  const [username, setUserName] = React.useState();
   const [password, setPassword] = React.useState();
 
   let location = useLocation();
@@ -25,7 +25,7 @@ function Login() {
 
     event.preventDefault(); // Apparently the default behavior is to refresh the entire page: https://stackoverflow.com/questions/50193227/basic-react-form-submit-refreshes-entire-page
 
-    let user = new Utilities.Auth.User(email, password)
+    let user = new Components.User(username, password)
 
     auth.signIn(user, () => {
       navigate(from, { replace: true });
@@ -43,9 +43,9 @@ function Login() {
               <div className="column is-half">
                 <form className="form box" onSubmit={(event) => attemptLogin(event)}>
                   <div>
-                    <label className="label">Email</label>
+                    <label className="label">User Name</label>
                     <div className="control has-icons-left">
-                      <input className="input" type="email" placeholder="email" id="email" onChange={(event) => setEmail(event.target.value)}></input>
+                      <input className="input" type="text" placeholder="username" id="username" onChange={(event) => setUserName(event.target.value)}></input>
                       <span className="icon is-left">
                         <FontAwesomeIcon icon={faEnvelope} />
                       </span>

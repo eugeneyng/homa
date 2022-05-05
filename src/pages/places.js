@@ -16,7 +16,6 @@ function Places() {
     <div>
       {<DashboardNav />}
       {<PlacesGrid />}
-      {/* <Outlet /> */}
     </div>
   )
 }
@@ -24,8 +23,8 @@ function Places() {
 function PlacesGrid() {
 
   let places = [
-    {id: 1, address: "address 1"},
-    {id: 2, address: "address 2"}
+    {id: 1, name: "address 1"},
+    {id: 2, name: "address 2"}
   ]
 
   // http://react.tips/how-to-create-reactjs-components-dynamically/
@@ -35,7 +34,7 @@ function PlacesGrid() {
     return (
       <div className="tile is-parent is-3 is-justify-content-start" key={place["id"]}>
         <Link to={"place/" + place["id"]} className="tile is-child is-flex is-justify-content-center box has-background-grey-dark has-text-light">
-          {place["address"]}
+          {place["name"]}
         </Link>
       </div>
     )
@@ -62,12 +61,12 @@ function PlacesGrid() {
 
 }
 
-function DashboardNav() {
+export function DashboardNav() {
   return (
     <div className="level has-background-black is-mobile">
         <div className="level-left">
           <a className="navbar-item" href="/">
-            <img src="../logo192.png" alt="Logo"></img>
+            <img src={window.location.origin + "/logo192.png"} alt="Logo"></img>
           </a>
         </div>
         <div className="level-right">

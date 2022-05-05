@@ -4,14 +4,6 @@
 import * as React from "react";
 import { Navigate, Outlet, useLocation } from "react-router-dom"
 
-export class User {
-
-  constructor(id, password) {
-    this.id = id;
-    this.password = password;
-  }
-}
-
 export let AuthContext = React.createContext();
 
 export function RequireAuth() {

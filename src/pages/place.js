@@ -1,22 +1,22 @@
 import React from "react"
 import { useParams } from "react-router-dom"
 
-import * as Utilities from "../utilities";
+import { Place } from "../components";
 
-function Place() {
+import { DashboardNav } from "./places"
 
-  let auth = React.useContext(Utilities.Auth.AuthContext);
-  console.log(auth);
+let thisplace = new Place(1, "eugene", "Address 1")
+
+export default function PlacePage() {
 
   const params = useParams();
   const place = params.id;
 
   return (
     <div>
-      <h1>{place}</h1>
+      <DashboardNav />
+      <h1>{thisplace.name}</h1>
     </div>
   )
   
 }
-
-export default Place;
