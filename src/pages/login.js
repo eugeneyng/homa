@@ -18,7 +18,7 @@ function Login() {
 
   function attemptLogin(event) {
 
-    // event.preventDefault(); // Apparently the default behavior is to refresh the entire page: https://stackoverflow.com/questions/50193227/basic-react-form-submit-refreshes-entire-page
+    event.preventDefault(); // Apparently the default behavior is to refresh the entire page: https://stackoverflow.com/questions/50193227/basic-react-form-submit-refreshes-entire-page
 
     let user = new Components.User(username, password)
 
