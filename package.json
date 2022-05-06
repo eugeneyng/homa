@@ -6,7 +6,7 @@
     "@fortawesome/free-brands-svg-icons": "latest",
     "@fortawesome/free-solid-svg-icons": "latest",
     "@fortawesome/react-fontawesome": "latest",
-    "@parse/react": "latest",
+    "@parse/react": "^0.0.1-alpha.18",
     "bulma": "latest",
     "parse": "latest",
     "react": "latest",

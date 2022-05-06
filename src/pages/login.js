@@ -1,11 +1,12 @@
+import "bulma";
+
 import React from "react";
 import { Navigate } from "react-router-dom";
-import "bulma";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faKey } from "@fortawesome/free-solid-svg-icons";
 
 import * as Components from "../components";
-import * as Utilities from "../utilities";
 
 // TODO: replace with Formik so that we get all the validation rules that come with it
 
@@ -13,7 +14,7 @@ function Login() {
   const [username, setUserName] = React.useState();
   const [password, setPassword] = React.useState();
 
-  let auth = React.useContext(Utilities.Auth.AuthContext);
+  let auth = React.useContext(Components.Auth.AuthContext);
 
   function attemptLogin(event) {
     event.preventDefault(); // Apparently the default behavior is to refresh the entire page: https://stackoverflow.com/questions/50193227/basic-react-form-submit-refreshes-entire-page

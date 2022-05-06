@@ -5,7 +5,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faKey, faUser } from "@fortawesome/free-solid-svg-icons";
 
 import * as Components from "../components";
-import * as Utilities from "../utilities";
 
 // TODO: replace with Formik to get all the validation rules that come with it
 
@@ -14,7 +13,7 @@ function Register() {
   const [email, setEmail] = React.useState();
   const [password, setPassword] = React.useState();
 
-  let auth = React.useContext(Utilities.Auth.AuthContext);
+  let auth = React.useContext(Components.Auth.AuthContext);
 
   function attemptRegister(event) {
     event.preventDefault(); // Apparently the default behavior is to refresh the entire page: https://stackoverflow.com/questions/50193227/basic-react-form-submit-refreshes-entire-page

@@ -1,14 +1,12 @@
-export default class Place {
-  defaultRooms = ["Attic", "Bedroom", "Kitchen", "Living Room"];
+import * as Parse from "parse";
 
-  constructor(id, name) {
-    this.id = id;
+export default class Place extends Parse.Object {
+
+  constructor(name) {
+    // Pass the Class Name to the Parse.Object constructor
+    super("Place")
+
+    // All Other Initializations
     this.name = name;
-  }
-
-  permissions = [{ eugene: "rw" }, { morgan: "r" }];
-
-  addRoom(room) {
-    this.rooms.push(room);
   }
 }

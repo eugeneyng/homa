@@ -1,10 +1,12 @@
-import React from "react";
 import "bulma";
+
+import React from "react";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import { faBell, faUser } from "@fortawesome/free-solid-svg-icons";
 
-import * as Utilities from "../utilities";
+import * as Auth from "./auth";
 
 export default function Header() {
   function toggleBurgerMenu() {
@@ -14,7 +16,7 @@ export default function Header() {
   // TODO: change logo
   // TODO: fix colors in active burger
 
-  let auth = React.useContext(Utilities.Auth.AuthContext);
+  let auth = React.useContext(Auth.AuthContext);
 
   function LogInOrLogOut() {
     if (auth.user) {
@@ -85,7 +87,7 @@ export default function Header() {
 }
 
 export function DashboardNav() {
-  let auth = React.useContext(Utilities.Auth.AuthContext);
+  let auth = React.useContext(Auth.AuthContext);
 
   return (
     <div className="level has-background-black is-mobile">
@@ -111,6 +113,9 @@ export function DashboardNav() {
             </span>
           </a>
           <div className="navbar-dropdown is-right">
+            <a className="navbar-item" href="/" onClick={() => null}>
+              Settings
+            </a>
             <a className="navbar-item" href="/" onClick={() => auth.signOut()}>
               Log Out
             </a>

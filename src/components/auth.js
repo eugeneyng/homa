@@ -21,6 +21,7 @@ export function RequireAuth() {
 export function AuthProvider({ children }) {
   Parse.initialize("id");
   Parse.serverURL = "https://parse.eugene.ng/parse";
+  Parse.enableLocalDatastore();
   const [user, setUser] = React.useState(Parse.User.current());
   const parseUser = new Parse.User();
 
@@ -61,6 +62,7 @@ export function AuthProvider({ children }) {
     // Also, this doesn't even close the session in Parse database which is annoying
     Parse.User.logOut()
       .then(() => {
+        Parse.Session.destroyAll(); // This doesn't do anything???
         setUser(null);
         localStorage.clear();
       })
