@@ -22,10 +22,10 @@ export function AuthProvider( {children} ) {
 
   Parse.initialize("id");
   Parse.serverURL = "https://parse.eugene.ng/parse"
-  const [user, setUser] = React.useState(getUser());
+  const [user, setUser] = React.useState(Parse.User.current());
+  const parseUser = new Parse.User();
 
   function registerUser(user) {
-    const parseUser = new Parse.User();
     parseUser.set("username", user.username);
     parseUser.set("password", user.password);
     parseUser.set("email", user.email);
@@ -38,27 +38,32 @@ export function AuthProvider( {children} ) {
     })
   }
 
-  function getUser() {
-    return Parse.User.current();
+  function signIn(user) {
+    parseUser.set("username", user.username);
+    parseUser.set("password", user.password);
+    parseUser.set("email", user.email);
+
+    parseUser.logIn().then(() => {
+      setUser(Parse.User.current());
+    }).catch(error => {
+      console.log("Error: " + error.code + " " + error.message)
+      setUser(null);
+    })
   }
 
-  function saveUser(user) {
-    localStorage.setItem("user", JSON.stringify(user));
-    setUser(user);
+  function signOut() {
+    // It's strange that this is Parse.User.logOut() and parseUser.logOut() does not work instead
+    // Also, this doesn't even close the session in Parse database which is annoying
+    Parse.User.logOut().then(() => {
+      setUser(null);
+      localStorage.clear();
+    }).catch(error => {
+      console.log("Error :" + error.code + " " + error.message);
+      console.log("Session not closed, most likely");
+    })
   }
 
-  function signIn(newUser, callback = () => {return null;} ) {
-    saveUser(newUser);
-    setTimeout(callback, 100); // fake async
-  }
-
-  function signOut(callback = () => {return null;} ) {
-    setUser(null);
-    localStorage.clear();
-    setTimeout(callback, 100); // fake async
-  }
-
-  let value = { user, getUser, registerUser, signIn, signOut }
+  let value = { user, registerUser, signIn, signOut }
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

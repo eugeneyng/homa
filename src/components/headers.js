@@ -70,7 +70,7 @@ export default function Header() {
           <span></span>
         </span>
       </div>
-      <div id="navbarMenu" className="navbar-menu">
+      <div id="navbarMenu" className="navbar-menu has-background-black">
         <div className="navbar-end">
           {<LogInOrLogOut />}
         </div>
