@@ -1,12 +1,11 @@
 import * as React from "react";
 import * as ReactDOMClient from "react-dom/client";
-import { BrowserRouter, Routes, Route } from "react-router-dom"
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import * as Pages from "./pages"
-import * as Utilities from "./utilities"
+import * as Pages from "./pages";
+import * as Utilities from "./utilities";
 
-function Homa () {
-  
+function Homa() {
   return (
     <Utilities.Auth.AuthProvider>
       <BrowserRouter>
@@ -22,9 +21,8 @@ function Homa () {
         </Routes>
       </BrowserRouter>
     </Utilities.Auth.AuthProvider>
-  )
+  );
 }
-
 
 const root = ReactDOMClient.createRoot(document.getElementById("root"));
 root.render(<Homa />);
