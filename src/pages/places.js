@@ -17,40 +17,44 @@ function Places() {
 }
 
 function PlacesGrid() {
-  let auth = React.useContext(Components.Auth.AuthContext);
 
-  let places = [
-    { id: 1, name: "address 1" },
-    { id: 2, name: "address 2" },
-  ];
+  let [places, setPlaces] = React.useState([])
 
-  function getPlaces() {
-    const parseQuery = new Parse.Query("Places");
-  }
-
-  // let places = getPlaces();
-
-  
+  const parseQuery = new Parse.Query(Components.Place);
+  parseQuery.equalTo("createdBy", Parse.User.current());
+  parseQuery
+    .find()
+    .then((results) => {
+      setPlaces(results)
+    })
+    .catch((error) => {
+      console.log("Failed to q. \nError: " + error.code + " " + error.message);
+    });
 
   function NewPlaceModal() {
-
     const [place, setPlace] = React.useState();
 
     function newPlaceClick(event) {
       event.preventDefault();
-      console.log("Saving new place to Parse Server");
-  
-      let newPlace = Components.Place(place);
-  
+
+      let newPlace = new Components.Place(place, Parse.User.current());
+      let acl = new Parse.ACL(Parse.User.current());
+      newPlace.setACL(acl);
+
       newPlace.save().then(
         () => {
-          console.log("Saved");
+          console.log("New place created with objectId: " + newPlace.id);
         },
         (error) => {
-          console.log("Error: " + error.code + " " + error.message);
+          console.log(
+            "Failed to create new place. \nError: " +
+              error.code +
+              " " +
+              error.message
+          );
         }
       );
-  
+
       document.querySelector(".modal").classList.toggle("is-active");
       document.getElementById("newPlaceForm").reset();
     }
@@ -74,7 +78,11 @@ function PlacesGrid() {
             ></button>
           </header>
           <section className="modal-card-body">
-            <form className="form" id="newPlaceForm" onSubmit={(event) => newPlaceClick(event)}>
+            <form
+              className="form"
+              id="newPlaceForm"
+              onSubmit={(event) => newPlaceClick(event)}
+            >
               <div className="field">
                 <label className="label">Name</label>
                 <div className="control">
@@ -112,16 +120,17 @@ function PlacesGrid() {
 
   // http://react.tips/how-to-create-reactjs-components-dynamically/
   function createTile(place) {
+    
     return (
       <div
         className="tile is-parent is-3 is-justify-content-start"
-        key={place["id"]}
+        key={place.id}
       >
         <Link
-          to={"place/" + place["id"]}
+          to={"place/" + place.id}
           className="tile is-child is-flex is-justify-content-center box has-background-grey-dark has-text-light"
         >
-          {place["name"]}
+          {place.get("name")}
         </Link>
       </div>
     );

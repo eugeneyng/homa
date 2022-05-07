@@ -25,6 +25,13 @@ export function AuthProvider({ children }) {
   const [user, setUser] = React.useState(Parse.User.current());
   const parseUser = new Parse.User();
 
+  const userACL = () => {
+    let acl = new Parse.ACL(Parse.User.current());
+    acl.setPublicReadAccess(false);
+    acl.setWriteAccess(Parse.User.current().id, true);
+    return acl;
+  };
+
   function registerUser(user) {
     parseUser.set("username", user.username);
     parseUser.set("password", user.password);
@@ -34,6 +41,7 @@ export function AuthProvider({ children }) {
       .signUp()
       .then(() => {
         signIn(user);
+        parseUser.setACL(userACL);
       })
       .catch((error) => {
         console.log("Error: " + error.code + " " + error.message);
