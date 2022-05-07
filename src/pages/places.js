@@ -17,6 +17,67 @@ function Places() {
 }
 
 function PlacesGrid() {
+  return (
+    <div className="container is-fluid is-max-desktop">
+      <div className="tile is-ancestor">
+        {<CreateTiles />}
+        <div
+          className="tile is-parent is-3 is-justify-content-start"
+          key="addnew"
+        >
+          <a
+            className="tile is-child is-flex is-justify-content-center box has-background-grey-dark has-text-light"
+            href="#/"
+            onClick={() =>
+              document.querySelector(".modal").classList.toggle("is-active")
+            }
+          >
+            <span className="icon is-justify-content-center">
+              <FontAwesomeIcon icon={faPlus} />
+            </span>
+          </a>
+        </div>
+      </div>
+      <NewPlaceModal />
+    </div>
+  );
+
+  // http://react.tips/how-to-create-reactjs-components-dynamically/
+  function CreateTiles() {
+    const [places, setPlaces] = React.useState([]); // This state is here because when it was in the very top level function for Places, it would fuck up and change the state of the entire page and then the New Modal Tile wasn't working
+
+    const parseQuery = new Parse.Query(Components.Place);
+    parseQuery.equalTo("createdBy", Parse.User.current());
+    parseQuery
+      .find()
+      .then((results) => {
+        setPlaces(results);
+      })
+      .catch((error) => {
+        console.log(
+          "Failed to q. \nError: " + error.code + " " + error.message
+        );
+      });
+
+    return places.map(createTile);
+  }
+
+  function createTile(place) {
+    return (
+      <div
+        className="tile is-parent is-3 is-justify-content-start"
+        key={place.id}
+      >
+        <Link
+          to={"place/" + place.id}
+          className="tile is-child is-flex is-justify-content-center box has-background-grey-dark has-text-light"
+        >
+          {place.get("name")}
+        </Link>
+      </div>
+    );
+  }
+
   function NewPlaceModal() {
     const [place, setPlace] = React.useState();
     function newPlaceClick(event) {
@@ -102,67 +163,6 @@ function PlacesGrid() {
       </div>
     );
   }
-
-  // http://react.tips/how-to-create-reactjs-components-dynamically/
-  function createTile(place) {
-    return (
-      <div
-        className="tile is-parent is-3 is-justify-content-start"
-        key={place.id}
-      >
-        <Link
-          to={"place/" + place.id}
-          className="tile is-child is-flex is-justify-content-center box has-background-grey-dark has-text-light"
-        >
-          {place.get("name")}
-        </Link>
-      </div>
-    );
-  }
-
-  function CreateTiles() {
-    const [places, setPlaces] = React.useState([]); // This state is here because when it was in the very top level function for Places, it would fuck up and change the state of the entire page and then the New Modal Tile wasn't working
-
-    const parseQuery = new Parse.Query(Components.Place);
-    parseQuery.equalTo("createdBy", Parse.User.current());
-    parseQuery
-      .find()
-      .then((results) => {
-        setPlaces(results);
-      })
-      .catch((error) => {
-        console.log(
-          "Failed to q. \nError: " + error.code + " " + error.message
-        );
-      });
-
-    return places.map(createTile);
-  }
-
-  return (
-    <div className="container is-fluid is-max-desktop">
-      <div className="tile is-ancestor">
-        {<CreateTiles />}
-        <div
-          className="tile is-parent is-3 is-justify-content-start"
-          key="addnew"
-        >
-          <a
-            className="tile is-child is-flex is-justify-content-center box has-background-grey-dark has-text-light"
-            href="#/"
-            onClick={() =>
-              document.querySelector(".modal").classList.toggle("is-active")
-            }
-          >
-            <span className="icon is-justify-content-center">
-              <FontAwesomeIcon icon={faPlus} />
-            </span>
-          </a>
-        </div>
-      </div>
-      <NewPlaceModal />
-    </div>
-  );
 }
 
 export default Places;
