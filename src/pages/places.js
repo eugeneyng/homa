@@ -17,19 +17,6 @@ function Places() {
 }
 
 function PlacesGrid() {
-  const [places, setPlaces] = React.useState([]);
-
-  const parseQuery = new Parse.Query(Components.Place);
-  parseQuery.equalTo("createdBy", Parse.User.current());
-  parseQuery
-    .find()
-    .then((results) => {
-      setPlaces(results);
-    })
-    .catch((error) => {
-      console.log("Failed to q. \nError: " + error.code + " " + error.message);
-    });
-
   function NewPlaceModal() {
     const [place, setPlace] = React.useState();
     function newPlaceClick(event) {
@@ -133,14 +120,29 @@ function PlacesGrid() {
     );
   }
 
-  function createTiles(places) {
+  function CreateTiles() {
+    const [places, setPlaces] = React.useState([]);
+
+    const parseQuery = new Parse.Query(Components.Place);
+    parseQuery.equalTo("createdBy", Parse.User.current());
+    parseQuery
+      .find()
+      .then((results) => {
+        setPlaces(results);
+      })
+      .catch((error) => {
+        console.log(
+          "Failed to q. \nError: " + error.code + " " + error.message
+        );
+      });
+
     return places.map(createTile);
   }
 
   return (
     <div className="container is-fluid is-max-desktop">
       <div className="tile is-ancestor">
-        {createTiles(places)}
+        {<CreateTiles />}
         <div
           className="tile is-parent is-3 is-justify-content-start"
           key="addnew"
