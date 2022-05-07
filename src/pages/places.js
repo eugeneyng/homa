@@ -17,31 +17,6 @@ function Places() {
 }
 
 function PlacesGrid() {
-  return (
-    <div className="container is-fluid is-max-desktop">
-      <div className="tile is-ancestor">
-        {<CreateTiles />}
-        <div
-          className="tile is-parent is-3 is-justify-content-start"
-          key="addnew"
-        >
-          <a
-            className="tile is-child is-flex is-justify-content-center box has-background-grey-dark has-text-light"
-            href="#/"
-            onClick={() =>
-              document.querySelector(".modal").classList.toggle("is-active")
-            }
-          >
-            <span className="icon is-justify-content-center">
-              <FontAwesomeIcon icon={faPlus} />
-            </span>
-          </a>
-        </div>
-      </div>
-      <NewPlaceModal />
-    </div>
-  );
-
   // http://react.tips/how-to-create-reactjs-components-dynamically/
   function CreateTiles() {
     const [places, setPlaces] = React.useState([]); // This state is here because when it was in the very top level function for Places, it would fuck up and change the state of the entire page and then the New Modal Tile wasn't working
@@ -163,6 +138,31 @@ function PlacesGrid() {
       </div>
     );
   }
+
+  return (
+    <div className="container is-fluid is-max-desktop">
+      <div className="tile is-ancestor">
+        {<CreateTiles />}
+        <div
+          className="tile is-parent is-3 is-justify-content-start"
+          key="addnew"
+        >
+          <a
+            className="tile is-child is-flex is-justify-content-center box has-background-grey-dark has-text-light"
+            href="#/"
+            onClick={() =>
+              document.querySelector(".modal").classList.toggle("is-active")
+            }
+          >
+            <span className="icon is-justify-content-center">
+              <FontAwesomeIcon icon={faPlus} />
+            </span>
+          </a>
+        </div>
+      </div>
+      <NewPlaceModal />
+    </div>
+  );
 }
 
 export default Places;
