@@ -121,7 +121,7 @@ function PlacesGrid() {
   }
 
   function CreateTiles() {
-    const [places, setPlaces] = React.useState([]);
+    const [places, setPlaces] = React.useState([]); // This state is here because when it was in the very top level function for Places, it would fuck up and change the state of the entire page and then the New Modal Tile wasn't working
 
     const parseQuery = new Parse.Query(Components.Place);
     parseQuery.equalTo("createdBy", Parse.User.current());
