@@ -18,7 +18,6 @@ function Places() {
 
 function PlacesGrid() {
   let auth = React.useContext(Components.Auth.AuthContext);
-  const [place, setPlace] = React.useState();
 
   let places = [
     { id: 1, name: "address 1" },
@@ -31,26 +30,31 @@ function PlacesGrid() {
 
   // let places = getPlaces();
 
-  function newPlaceClick(event) {
-    event.preventDefault();
-    console.log("Saving new place to Parse Server");
-
-    let newPlace = Components.Place(place);
-
-    newPlace.save().then(
-      () => {
-        console.log("Saved");
-      },
-      (error) => {
-        console.log("Error: " + error.code + " " + error.message);
-      }
-    );
-
-    document.querySelector(".modal").classList.toggle("is-active");
-    document.getElementById("newPlaceForm").reset();
-  }
+  
 
   function NewPlaceModal() {
+
+    const [place, setPlace] = React.useState();
+
+    function newPlaceClick(event) {
+      event.preventDefault();
+      console.log("Saving new place to Parse Server");
+  
+      let newPlace = Components.Place(place);
+  
+      newPlace.save().then(
+        () => {
+          console.log("Saved");
+        },
+        (error) => {
+          console.log("Error: " + error.code + " " + error.message);
+        }
+      );
+  
+      document.querySelector(".modal").classList.toggle("is-active");
+      document.getElementById("newPlaceForm").reset();
+    }
+
     return (
       <div className="modal">
         <div
@@ -70,7 +74,7 @@ function PlacesGrid() {
             ></button>
           </header>
           <section className="modal-card-body">
-            <form id="newPlaceForm" onSubmit={(event) => newPlaceClick(event)}>
+            <form className="form" id="newPlaceForm" onSubmit={(event) => newPlaceClick(event)}>
               <div className="field">
                 <label className="label">Name</label>
                 <div className="control">
