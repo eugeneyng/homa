@@ -126,7 +126,7 @@ We want to provide a platform that is:
 
 - **available everywhere**: Homa should be able to run on any desktop OS or mobile phone easily. This will be made possible by making sure the tool is easily installable by anyone who wants to either contribute or host the platform themselves.
 
-### Strategy
+### Strategy/Growth
 
 We think Homa has to become a platform more than an application, so people can build on it.
 
@@ -184,8 +184,6 @@ I wanted to open source Homa for several reasons:
     Because developers are very powerful influencers. Developers will create apps around your product, talk about it on forums, and share the project with their friends, families, and colleagues. Cherish the developers – users will follow.
 
 ### Patreon
-
-You can support the development of Homa [on Patreon](https://www.patreon.com/homa). Thanks for your help.
 
 ## Contact
 

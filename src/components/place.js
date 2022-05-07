@@ -1,4 +1,5 @@
 import * as Parse from "parse";
+// Maybe in the future, for a lighter weight self-hostable database we utilize indexeddb (with dexie)
 
 export default class Place extends Parse.Object {
 
