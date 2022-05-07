@@ -17,15 +17,14 @@ function Places() {
 }
 
 function PlacesGrid() {
-
-  let [places, setPlaces] = React.useState([])
+  const [places, setPlaces] = React.useState([]);
 
   const parseQuery = new Parse.Query(Components.Place);
   parseQuery.equalTo("createdBy", Parse.User.current());
   parseQuery
     .find()
     .then((results) => {
-      setPlaces(results)
+      setPlaces(results);
     })
     .catch((error) => {
       console.log("Failed to q. \nError: " + error.code + " " + error.message);
@@ -33,7 +32,6 @@ function PlacesGrid() {
 
   function NewPlaceModal() {
     const [place, setPlace] = React.useState();
-
     function newPlaceClick(event) {
       event.preventDefault();
 
@@ -120,7 +118,6 @@ function PlacesGrid() {
 
   // http://react.tips/how-to-create-reactjs-components-dynamically/
   function createTile(place) {
-    
     return (
       <div
         className="tile is-parent is-3 is-justify-content-start"
