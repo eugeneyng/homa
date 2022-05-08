@@ -9,6 +9,7 @@ import { faUser, faKey } from "@fortawesome/free-solid-svg-icons";
 import * as Components from "../components";
 
 // TODO: replace with Formik so that we get all the validation rules that come with it
+// TODO: honestly not a big fan of the way the state works here. I would think it would be less intense to set the state when the input is not in focus anymore
 
 function Login() {
   const [username, setUserName] = React.useState();

@@ -15,6 +15,7 @@ export default function Header() {
 
   // TODO: change logo
   // TODO: fix colors in active burger
+  // TODO: fix dropdown on mobile : https://stackoverflow.com/questions/67163374/how-to-fix-bulma-navbar-dropdown-when-it-is-in-the-navbar-brand-section?msclkid=742b440ace5e11eca2d0aacadb47e00f
 
   let auth = React.useContext(Auth.AuthContext);
 
