@@ -20,7 +20,7 @@ export function RequireAuth() {
 
 export function AuthProvider({ children }) {
   Parse.initialize("id");
-  Parse.serverURL = "https://parse.eugene.ng/parse";
+  Parse.serverURL = "https://parse.eugene.ng/parse"; // This should be self hosted Parse
   Parse.enableLocalDatastore();
   const [user, setUser] = React.useState(Parse.User.current());
   const parseUser = new Parse.User();

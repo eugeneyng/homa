@@ -1,5 +1,4 @@
 import React from "react";
-import "bulma";
 import * as Components from "../components";
 
 function Home() {

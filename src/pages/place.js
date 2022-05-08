@@ -19,7 +19,7 @@ export default function PlacePage() {
 
   function Menu() {
     return (
-      <aside className="menu column is-one-fifth mx-2">
+      <aside className="menu column is-one-fifth mx-2 has-background-black is-hidden-mobile">
         <p className="menu-label">General</p>
         <ul className="menu-list">
           <li>
@@ -30,23 +30,14 @@ export default function PlacePage() {
         </ul>
         <p className="menu-label">Interior</p>
         <ul className="menu-list">
-          <InteriorRooms />
-          <NewRoom />
-        </ul>
-        <p className="menu-label">Exterior</p>
-        <ul className="menu-list">
-          <ExteriorRooms />
+          <Rooms />
           <NewRoom />
         </ul>
       </aside>
     );
 
-    function InteriorRooms() {
-      const [iRooms, setIRooms] = React.useState([]);
-    }
-
-    function ExteriorRooms() {
-      const [eRooms, setERooms] = React.useState([]);
+    function Rooms() {
+      const [rooms, setRooms] = React.useState([]);
     }
 
     function NewRoom(type) {
@@ -78,7 +69,7 @@ export default function PlacePage() {
 
     return (
       // If you're wondering why this is 3/4 and the other is 1/5 it's because the mx-2 spacer pushes this column out to the right so the button is off the page
-      <div className="column is-three-quarters">
+      <div className="column is-three-quarters mx-1">
         <div className="level">
           <div className="level-left">
             <div className="level-item">
@@ -88,32 +79,21 @@ export default function PlacePage() {
           </div>
           <div className="level-right is-right">
             <div className="level-item">
-              <button className="button is-danger">Delete</button>
+              <button className="button is-danger is-small">Delete</button>
             </div>
           </div>
         </div>
-        <div className="subtitle has-text-white">
-          <p>24 Skylark Ct, New Britain CT 06053</p>
+        <div className="heading has-text-white">
+          <p>Address: {place?.get("address") ?? ""}</p>
         </div>
-        <div className="level is-mobile">
-          <div className="level-item">
-            <div className="has-text-white">
-              <p className="heading">Year Built</p>
-              <p className="subtitle has-text-white">1956</p>
-            </div>
-          </div>
-          <div className="level-item has-text-centered">
-            <div className="has-text-white">
-              <p className="heading">Sq Ft</p>
-              <p className="subtitle has-text-white">1311</p>
-            </div>
-          </div>
-          <div className="level-item has-text-centered has-text-white">
-            <div className="has-text-white">
-              <p className="heading">Rooms</p>
-              <p className="subtitle has-text-white">3 Br | 2 Ba</p>
-            </div>
-          </div>
+        <div className="heading has-text-white">
+          <p>Built: {place?.get("built") ?? ""}</p>
+        </div>
+        <div className="heading has-text-white">
+          <p>Sq. Ft.: {place?.get("sqft") ?? ""}</p>
+        </div>
+        <div className="heading has-text-white">
+          <p>Rooms: {place?.get("bedbath") ?? ""}</p>
         </div>
       </div>
     );

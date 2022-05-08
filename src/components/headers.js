@@ -9,13 +9,10 @@ import { faBell, faUser } from "@fortawesome/free-solid-svg-icons";
 import * as Auth from "./auth";
 
 export default function Header() {
-  function toggleBurgerMenu() {
-    document.querySelector(".navbar-menu").classList.toggle("is-active");
-  }
-
   // TODO: change logo
   // TODO: fix colors in active burger
   // TODO: fix dropdown on mobile : https://stackoverflow.com/questions/67163374/how-to-fix-bulma-navbar-dropdown-when-it-is-in-the-navbar-brand-section?msclkid=742b440ace5e11eca2d0aacadb47e00f
+  // I did this and it worked but now the dropdown doesn't open on mobile : https://stackoverflow.com/questions/55416573/bulma-navbar-menu-open-by-default-on-mobile?msclkid=6c8064e2cf0011ecb1ce11338f33244e
 
   let auth = React.useContext(Auth.AuthContext);
 
@@ -73,7 +70,7 @@ export default function Header() {
         <span
           className="navbar-burger"
           data-target="navbarMenu"
-          onClick={toggleBurgerMenu}
+          onClick={() => {document.querySelector(".navbar-menu").classList.toggle("is-active");}}
         >
           <span></span>
           <span></span>
@@ -108,12 +105,12 @@ export function DashboardNav() {
           </a>
         </div>
         <div className="navbar-item has-dropdown is-hoverable">
-          <a className="navbar-item" href="#/">
+          <a className="navbar-item" href="#/" onClick={() => {document.querySelector(".navbar-dropdown").classList.toggle("is-hidden-mobile");}}>
             <span className="icon">
               <FontAwesomeIcon icon={faUser} />
             </span>
           </a>
-          <div className="navbar-dropdown is-right">
+          <div className="navbar-dropdown is-right is-hidden-touch">
             <a className="navbar-item" href="/" onClick={() => null}>
               Settings
             </a>
