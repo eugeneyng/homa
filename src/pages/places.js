@@ -20,7 +20,6 @@ function Places() {
 }
 
 function PlacesGrid() {
-
   // http://react.tips/how-to-create-reactjs-components-dynamically/
   function CreateTiles() {
     const [places, setPlaces] = React.useState([]); // This state is here because when it was in the very top level function for Places, it would fuck up and change the state of the entire page and then the New Modal Tile wasn't working
@@ -58,9 +57,8 @@ function PlacesGrid() {
   }
 
   function NewPlaceModal() {
-
     const [place, setPlace] = React.useState();
-    
+
     function newPlaceClick(event) {
       event.preventDefault();
 

@@ -10,46 +10,12 @@ export default function PlacePage() {
   return (
     <div>
       <Components.DashboardNav />
-      <div className="columns">
-        <Menu />
+      <div>
         <Infotainer />
+        <Room />
       </div>
     </div>
   );
-
-  function Menu() {
-    return (
-      <aside className="menu column is-one-fifth mx-2 has-background-black is-hidden-mobile">
-        <p className="menu-label">General</p>
-        <ul className="menu-list">
-          <li>
-            <a className="has-text-grey-light" href="#/">
-              Dashboard
-            </a>
-          </li>
-        </ul>
-        <p className="menu-label">Interior</p>
-        <ul className="menu-list">
-          <Rooms />
-          <NewRoom />
-        </ul>
-      </aside>
-    );
-
-    function Rooms() {
-      const [rooms, setRooms] = React.useState([]);
-    }
-
-    function NewRoom(type) {
-      return (
-        <li>
-          <a className="has-text-grey-light" href="#/">
-            +
-          </a>
-        </li>
-      );
-    }
-  }
 
   function Infotainer() {
     const [place, setPlace] = React.useState(null); // TODO : Should we consider using a whole React Context here to share state across pages? Is that necessary? https://stackoverflow.com/questions/52614676/react-state-in-different-component-on-different-page-route?msclkid=a6565f3fce7211ec87acd767188c404f
@@ -68,13 +34,14 @@ export default function PlacePage() {
       });
 
     return (
-      // If you're wondering why this is 3/4 and the other is 1/5 it's because the mx-2 spacer pushes this column out to the right so the button is off the page
-      <div className="column is-three-quarters mx-1">
+      <div className="mx-2">
         <div className="level">
           <div className="level-left">
             <div className="level-item">
               {/* the question mark in the next line here directly checks for place's existence, if doesn't exist return "" */}
-              <p className="title block has-text-white">{place?.get("name") ?? ""}</p> 
+              <p className="title block has-text-white">
+                {place?.get("name") ?? ""}
+              </p>
             </div>
           </div>
           <div className="level-right is-right">
@@ -84,18 +51,61 @@ export default function PlacePage() {
           </div>
         </div>
         <div className="heading has-text-white">
-          <p>Address: {place?.get("address") ?? ""}</p>
+          <p>Address: {place?.get("address") ?? "Not Provided"}</p>
         </div>
         <div className="heading has-text-white">
-          <p>Built: {place?.get("built") ?? ""}</p>
+          <p>Built: {place?.get("built") ?? "XXXX"}</p>
         </div>
         <div className="heading has-text-white">
-          <p>Sq. Ft.: {place?.get("sqft") ?? ""}</p>
+          <p>Sq. Ft.: {place?.get("sqft") ?? "XXXX"}</p>
         </div>
         <div className="heading has-text-white">
-          <p>Rooms: {place?.get("bedbath") ?? ""}</p>
+          <p>Rooms: {place?.get("bedbath") ?? "X Bed, X Bath"}</p>
         </div>
       </div>
     );
+  }
+
+  function Room() {
+    return (
+      <div>
+        <NavigationPanel />
+      </div>
+    )
+  }
+
+  function NavigationPanel() {
+    return (
+      <article className="panel has-background-black">
+        <p className="panel-heading">
+          Rooms
+        </p>
+        <p className="panel-tabs">
+          <a className="is-active">All</a>
+          <a>Interior</a>
+          <a>Exterior</a>
+        </p>
+        <div class="panel-block">
+          <p class="control has-icons-left">
+            <input class="input is-primary" type="text" placeholder="Search"></input>
+            <span class="icon is-left">
+              <i class="fas fa-search" aria-hidden="true"></i>
+            </span>
+          </p>
+        </div>
+        <a class="panel-block is-active">
+          <span class="panel-icon">
+            <i class="fas fa-book" aria-hidden="true"></i>
+          </span>
+          bulma
+        </a>
+        <a class="panel-block">
+          <span class="panel-icon">
+            <i class="fas fa-book" aria-hidden="true"></i>
+          </span>
+          marksheet
+        </a>
+      </article>
+    )
   }
 }

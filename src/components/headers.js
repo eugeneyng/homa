@@ -70,7 +70,11 @@ export default function Header() {
         <span
           className="navbar-burger"
           data-target="navbarMenu"
-          onClick={() => {document.querySelector(".navbar-menu").classList.toggle("is-active");}}
+          onClick={() => {
+            document
+              .querySelector(".navbar-menu")
+              .classList.toggle("is-active");
+          }}
         >
           <span></span>
           <span></span>
@@ -105,7 +109,15 @@ export function DashboardNav() {
           </a>
         </div>
         <div className="navbar-item has-dropdown is-hoverable">
-          <a className="navbar-item" href="#/" onClick={() => {document.querySelector(".navbar-dropdown").classList.toggle("is-hidden-mobile");}}>
+          <a
+            className="navbar-item"
+            href="#/"
+            onClick={() => {
+              document
+                .querySelector(".navbar-dropdown")
+                .classList.toggle("is-hidden-touch");
+            }}
+          >
             <span className="icon">
               <FontAwesomeIcon icon={faUser} />
             </span>
