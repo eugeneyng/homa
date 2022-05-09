@@ -82,7 +82,7 @@ export default function PlacePage() {
     function createRoomTab(room) {
       return (
         <li key={room.id}>
-          <a href="#/">{room.get("name")}</a>
+          <a className="has-text-white" href="#/">{room.get("name")}</a>
         </li>
       );
     }
@@ -92,7 +92,7 @@ export default function PlacePage() {
         <ul>
           <CreateRoomTabs />
           <li>
-            <a
+            <a className="has-text-white" href="#/" // TODO: fix this so that the href doesn't cause the page to refresh before this button works. Removing the href works but then I get an annoying react warning
               onClick={() =>
                 document.querySelector(".modal").classList.toggle("is-active")
               }
@@ -118,6 +118,7 @@ export default function PlacePage() {
       newRoom.save().then(
         () => {
           console.log("New Room created with objectId: " + newRoom.id);
+          window.location.reload() // TODO : fix this so that a reload isn't necessary
         },
         (error) => {
           console.log(
