@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import * as Parse from "parse";
 
 import * as Components from "../components";
+import defaults from "../assets/defaults.json";
 
 export default function PlacePage() {
   const params = useParams();
@@ -10,6 +11,9 @@ export default function PlacePage() {
   const [place, setPlace] = React.useState(); // TODO : Should we consider using a whole React Context here to share state across pages? Is that necessary? https://stackoverflow.com/questions/52614676/react-state-in-different-component-on-different-page-route?msclkid=a6565f3fce7211ec87acd767188c404f
 
   function Infotainer() {
+
+    const [meta, setMeta] = React.useState(defaults.meta);
+
     if (!place) {
       const parseQuery = new Parse.Query(Components.Place);
       parseQuery.equalTo("objectId", params.id);
@@ -42,17 +46,21 @@ export default function PlacePage() {
             </div>
           </div>
         </div>
-        <div className="heading has-text-white">
-          <p>Address: {place?.get("address") ?? "Not Provided"}</p>
+        <div className="heading has-text-white level-left">
+          <p>Address:&nbsp;</p>
+          <p>{place?.get("address") ?? meta.address}</p>
         </div>
-        <div className="heading has-text-white">
-          <p>Built: {place?.get("built") ?? "XXXX"}</p>
+        <div className="heading has-text-white level-left">
+          <p>Built:&nbsp;</p>
+          <p>{place?.get("built") ?? meta.built}</p>
         </div>
-        <div className="heading has-text-white">
-          <p>Sq. Ft.: {place?.get("sqft") ?? "XXXX"}</p>
+        <div className="heading has-text-white level-left">
+          <p>Sq. Ft.:&nbsp;</p>
+          <p>{place?.get("sqft") ?? meta.sqft}</p>
         </div>
-        <div className="heading has-text-white">
-          <p>Rooms: {place?.get("bedbath") ?? "X Bed, X Bath"}</p>
+        <div className="heading has-text-white level-left">
+          <p>Rooms:&nbsp;</p>
+          <p>{place?.get("bedbath") ?? meta.bedbath}</p>
         </div>
       </div>
     );
@@ -82,7 +90,9 @@ export default function PlacePage() {
     function createRoomTab(room) {
       return (
         <li key={room.id}>
-          <a className="has-text-white" href="#/">{room.get("name")}</a>
+          <a className="has-text-white" href="#/">
+            {room.get("name")}
+          </a>
         </li>
       );
     }
@@ -92,7 +102,9 @@ export default function PlacePage() {
         <ul>
           <CreateRoomTabs />
           <li>
-            <a className="has-text-white" href="#/" // TODO: fix this so that the href doesn't cause the page to refresh before this button works. Removing the href works but then I get an annoying react warning
+            <a
+              className="has-text-white"
+              href="#/" // TODO: fix this so that the href doesn't cause the page to refresh before this button works. Removing the href works but then I get an annoying react warning
               onClick={() =>
                 document.querySelector(".modal").classList.toggle("is-active")
               }
@@ -118,7 +130,7 @@ export default function PlacePage() {
       newRoom.save().then(
         () => {
           console.log("New Room created with objectId: " + newRoom.id);
-          window.location.reload() // TODO : fix this so that a reload isn't necessary
+          window.location.reload(); // TODO : fix this so that a reload isn't necessary
         },
         (error) => {
           console.log(
@@ -153,7 +165,11 @@ export default function PlacePage() {
             ></button>
           </header>
           <section className="modal-card-body">
-            <form className="form" id="newRoomForm" onSubmit={(event) => newRoomClick(event)}>
+            <form
+              className="form"
+              id="newRoomForm"
+              onSubmit={(event) => newRoomClick(event)}
+            >
               <div className="field">
                 <label className="label">Name</label>
                 <div className="control">

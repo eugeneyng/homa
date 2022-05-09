@@ -1,4 +1,10 @@
 {
+  "meta": {
+    "address": "Not Provided",
+    "built": "XXXX",
+    "sqft": "XXXX",
+    "bedbath": "X Beds, X Baths"
+  },
   "rooms": [
     "Attic",
     "Bedroom",
