@@ -20,22 +20,26 @@ function Places() {
 }
 
 function PlacesGrid() {
+
   // http://react.tips/how-to-create-reactjs-components-dynamically/
   function CreateTiles() {
+
     const [places, setPlaces] = React.useState([]); // This state is here because when it was in the very top level function for Places, it would fuck up and change the state of the entire page and then the New Modal Tile wasn't working
 
-    const parseQuery = new Parse.Query(Components.Place);
-    parseQuery.equalTo("createdBy", Parse.User.current());
-    parseQuery
-      .find()
-      .then((results) => {
-        setPlaces(results);
-      })
-      .catch((error) => {
-        console.log(
-          "Failed to q. \nError: " + error.code + " " + error.message
-        );
-      });
+    if (places.length === 0 ) { // If this isn't here then the Parse requests NEVER STOP
+      const parseQuery = new Parse.Query(Components.Place);
+      parseQuery.equalTo("createdBy", Parse.User.current());
+      parseQuery
+        .find()
+        .then((results) => {
+          setPlaces(results);
+        })
+        .catch((error) => {
+          console.log(
+            "Failed to q. \nError: " + error.code + " " + error.message
+          );
+        });
+    }
 
     return places.map(createTile);
   }

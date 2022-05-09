@@ -7,31 +7,23 @@ import * as Components from "../components";
 export default function PlacePage() {
   const params = useParams();
 
-  return (
-    <div>
-      <Components.DashboardNav />
-      <div>
-        <Infotainer />
-        <Room />
-      </div>
-    </div>
-  );
+  const [place, setPlace] = React.useState(); // TODO : Should we consider using a whole React Context here to share state across pages? Is that necessary? https://stackoverflow.com/questions/52614676/react-state-in-different-component-on-different-page-route?msclkid=a6565f3fce7211ec87acd767188c404f
 
   function Infotainer() {
-    const [place, setPlace] = React.useState(null); // TODO : Should we consider using a whole React Context here to share state across pages? Is that necessary? https://stackoverflow.com/questions/52614676/react-state-in-different-component-on-different-page-route?msclkid=a6565f3fce7211ec87acd767188c404f
-
-    const parseQuery = new Parse.Query(Components.Place);
-    parseQuery.equalTo("objectId", params.id);
-    parseQuery
-      .find()
-      .then((results) => {
-        setPlace(results[0]);
-      })
-      .catch((error) => {
-        console.log(
-          "Failed to query. \nError: " + error.code + " " + error.message
-        );
-      });
+    if (!place) {
+      const parseQuery = new Parse.Query(Components.Place);
+      parseQuery.equalTo("objectId", params.id);
+      parseQuery
+        .find()
+        .then((results) => {
+          setPlace(results[0]);
+        })
+        .catch((error) => {
+          console.log(
+            "Failed to query. \nError: " + error.code + " " + error.message
+          );
+        });
+    }
 
     return (
       <div className="mx-2">
@@ -66,46 +58,144 @@ export default function PlacePage() {
     );
   }
 
-  function Room() {
+  function RoomTabs() {
+    function CreateRoomTabs() {
+      const [rooms, setRooms] = React.useState([]);
+      if (rooms.length === 0) {
+        const parseQuery = new Parse.Query(Components.Room);
+        parseQuery.equalTo("Place", place);
+        parseQuery
+          .find()
+          .then((results) => {
+            setRooms(results);
+          })
+          .catch((error) => {
+            console.log(
+              "Failed to q. \nError: " + error.code + " " + error.message
+            );
+          });
+      }
+
+      return rooms.map(createRoomTab);
+    }
+
+    function createRoomTab(room) {
+      return (
+        <li key={room.id}>
+          <a href="#/">{room.get("name")}</a>
+        </li>
+      );
+    }
+
     return (
-      <div>
-        <NavigationPanel />
+      <div className="tabs is-boxed">
+        <ul>
+          <CreateRoomTabs />
+          <li>
+            <a
+              onClick={() =>
+                document.querySelector(".modal").classList.toggle("is-active")
+              }
+            >
+              +
+            </a>
+          </li>
+        </ul>
       </div>
-    )
+    );
   }
 
-  function NavigationPanel() {
+  function NewRoomModal() {
+    const [room, setRoom] = React.useState();
+
+    function newRoomClick(event) {
+      event.preventDefault();
+
+      let newRoom = new Components.Room(room, place);
+      let acl = new Parse.ACL(Parse.User.current());
+      newRoom.setACL(acl);
+
+      newRoom.save().then(
+        () => {
+          console.log("New Room created with objectId: " + newRoom.id);
+        },
+        (error) => {
+          console.log(
+            "Failed to create new Room. \nError: " +
+              error.code +
+              " " +
+              error.message
+          );
+        }
+      );
+
+      document.querySelector(".modal").classList.toggle("is-active");
+      document.getElementById("newRoomForm").reset();
+    }
+
     return (
-      <article className="panel has-background-black">
-        <p className="panel-heading">
-          Rooms
-        </p>
-        <p className="panel-tabs">
-          <a className="is-active">All</a>
-          <a>Interior</a>
-          <a>Exterior</a>
-        </p>
-        <div class="panel-block">
-          <p class="control has-icons-left">
-            <input class="input is-primary" type="text" placeholder="Search"></input>
-            <span class="icon is-left">
-              <i class="fas fa-search" aria-hidden="true"></i>
-            </span>
-          </p>
+      <div className="modal">
+        <div
+          className="modal-background"
+          onClick={() =>
+            document.querySelector(".modal").classList.toggle("is-active")
+          }
+        ></div>
+        <div className="modal-card">
+          <header className="modal-card-head">
+            <p className="modal-card-title">New Room</p>
+            <button
+              className="delete is-large"
+              onClick={() =>
+                document.querySelector(".modal").classList.toggle("is-active")
+              }
+            ></button>
+          </header>
+          <section className="modal-card-body">
+            <form className="form" id="newRoomForm" onSubmit={(event) => newRoomClick(event)}>
+              <div className="field">
+                <label className="label">Name</label>
+                <div className="control">
+                  <input
+                    className="input"
+                    id="room"
+                    type="text"
+                    placeholder="Living Room"
+                    onChange={(event) => setRoom(event.target.value)}
+                  ></input>
+                </div>
+              </div>
+            </form>
+          </section>
+          <footer className="modal-card-foot">
+            <button
+              className="button is-success"
+              onClick={(event) => newRoomClick(event)}
+            >
+              Save changes
+            </button>
+            <button
+              className="button"
+              onClick={() =>
+                document.querySelector(".modal").classList.toggle("is-active")
+              }
+            >
+              Cancel
+            </button>
+          </footer>
         </div>
-        <a class="panel-block is-active">
-          <span class="panel-icon">
-            <i class="fas fa-book" aria-hidden="true"></i>
-          </span>
-          bulma
-        </a>
-        <a class="panel-block">
-          <span class="panel-icon">
-            <i class="fas fa-book" aria-hidden="true"></i>
-          </span>
-          marksheet
-        </a>
-      </article>
-    )
+      </div>
+    );
   }
+
+  return (
+    <div>
+      <Components.DashboardNav />
+      <div>
+        <Infotainer />
+        <RoomTabs />
+        <NewRoomModal />
+      </div>
+    </div>
+  );
 }
