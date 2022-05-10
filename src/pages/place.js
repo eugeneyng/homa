@@ -35,7 +35,7 @@ export default function PlacePage() {
           <div className="level-left">
             <div className="level-item">
               {/* the question mark in the next line here directly checks for place's existence, if doesn't exist return "" */}
-              <p className="title block has-text-white">
+              <p className="title block has-text-white" contentEditable="true">
                 {place?.get("name") ?? ""}
               </p>
             </div>
@@ -48,19 +48,19 @@ export default function PlacePage() {
         </div>
         <div className="heading has-text-white level-left">
           <p>Address:&nbsp;</p>
-          <p>{place?.get("address") ?? meta.address}</p>
+          <p contentEditable="true">{place?.get("address") ?? meta.address}</p>
         </div>
         <div className="heading has-text-white level-left">
           <p>Built:&nbsp;</p>
-          <p>{place?.get("built") ?? meta.built}</p>
+          <p contentEditable="true">{place?.get("built") ?? meta.built}</p>
         </div>
         <div className="heading has-text-white level-left">
           <p>Sq. Ft.:&nbsp;</p>
-          <p>{place?.get("sqft") ?? meta.sqft}</p>
+          <p contentEditable="true">{place?.get("sqft") ?? meta.sqft}</p>
         </div>
         <div className="heading has-text-white level-left">
           <p>Rooms:&nbsp;</p>
-          <p>{place?.get("bedbath") ?? meta.bedbath}</p>
+          <p contentEditable="true">{place?.get("bedbath") ?? meta.bedbath}</p>
         </div>
       </div>
     );
