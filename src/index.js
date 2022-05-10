@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as ReactDOMClient from "react-dom/client";
-// import "./styles.css";
-import "bulma"
+import "./styles.css";
+// import "bulma"
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import * as Components from "./components";

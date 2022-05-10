@@ -1,15 +1,11 @@
 @charset "utf-8";
 @import "../node_modules/bulma/bulma.sass";
 
-// .navbar-item {
-//   &.has-dropdown {
-//     .navbar-dropdown {
-//       display: none;
-//     }
-//     &.is-active {
-//       .navbar-dropdown {
-//         display: block;
-//       }
-//     }
-//  }
+// [contenteditable="true"] {
+//   background-color: grey;
 // }
+
+[contenteditable="true"]:focus {
+  background-color: white;
+  color: black;
+}
