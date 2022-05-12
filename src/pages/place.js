@@ -28,6 +28,32 @@ export default function PlacePage() {
         });
     }
 
+    function onMetaChange(event, attribute) {
+      place.set(attribute, event.target.innerHTML);
+      place.save().then(
+        () => {
+          console.log("Place updated");
+        },
+        (error) => {
+          console.log(
+            "Failed to save place. \nError: " +
+              error.code +
+              " " +
+              error.message
+          );
+        }
+      );
+      meta[attribute] = event.target.innerHTML;
+      setMeta(meta);
+    }
+
+    function onEnter(event) {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        event.target.blur();
+      }
+    }
+
     return (
       <div className="mx-2">
         <div className="level">
@@ -38,6 +64,8 @@ export default function PlacePage() {
                 className="title block has-text-white"
                 contentEditable="true"
                 suppressContentEditableWarning="true"
+                onBlur={(event) => onMetaChange(event, "name")}
+                onKeyDown={(event) => onEnter(event)}
               >
                 {place?.get("name") ?? ""}
               </p>
@@ -51,25 +79,45 @@ export default function PlacePage() {
         </div>
         <div className="heading has-text-white level-left">
           <p>Address:&nbsp;</p>
-          <p contentEditable="true" suppressContentEditableWarning="true">
+          <p
+            contentEditable="true"
+            suppressContentEditableWarning="true"
+            onBlur={(event) => onMetaChange(event, "address")}
+            onKeyDown={(event) => onEnter(event)}
+          >
             {place?.get("address") ?? meta.address}
           </p>
         </div>
         <div className="heading has-text-white level-left">
           <p>Built:&nbsp;</p>
-          <p contentEditable="true" suppressContentEditableWarning="true">
+          <p
+            contentEditable="true"
+            suppressContentEditableWarning="true"
+            onBlur={(event) => onMetaChange(event, "built")}
+            onKeyDown={(event) => onEnter(event)}
+          >
             {place?.get("built") ?? meta.built}
           </p>
         </div>
         <div className="heading has-text-white level-left">
           <p>Sq. Ft.:&nbsp;</p>
-          <p contentEditable="true" suppressContentEditableWarning="true">
+          <p
+            contentEditable="true"
+            suppressContentEditableWarning="true"
+            onBlur={(event) => onMetaChange(event, "sqft")}
+            onKeyDown={(event) => onEnter(event)}
+          >
             {place?.get("sqft") ?? meta.sqft}
           </p>
         </div>
         <div className="heading has-text-white level-left">
           <p>Rooms:&nbsp;</p>
-          <p contentEditable="true" suppressContentEditableWarning="true">
+          <p
+            contentEditable="true"
+            suppressContentEditableWarning="true"
+            onBlur={(event) => onMetaChange(event, "bedbath")}
+            onKeyDown={(event) => onEnter(event)}
+          >
             {place?.get("bedbath") ?? meta.bedbath}
           </p>
         </div>
@@ -216,6 +264,10 @@ export default function PlacePage() {
     );
   }
 
+  function Roomtainer() {
+
+  }
+
   return (
     <div>
       <Components.DashboardNav />
@@ -223,6 +275,7 @@ export default function PlacePage() {
         <Infotainer />
         <RoomTabs />
         <NewRoomModal />
+        <Roomtainer />
       </div>
     </div>
   );
