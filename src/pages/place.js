@@ -10,6 +10,8 @@ export default function PlacePage() {
 
   const [place, setPlace] = React.useState(); // TODO : Should we consider using a whole React Context here to share state across pages? Is that necessary? https://stackoverflow.com/questions/52614676/react-state-in-different-component-on-different-page-route?msclkid=a6565f3fce7211ec87acd767188c404f
 
+  const [currentRoom, setCurrentRoom] = React.useState();
+
   function Infotainer() {
     const [meta, setMeta] = React.useState(defaults.meta);
 
@@ -36,10 +38,7 @@ export default function PlacePage() {
         },
         (error) => {
           console.log(
-            "Failed to save place. \nError: " +
-              error.code +
-              " " +
-              error.message
+            "Failed to save place. \nError: " + error.code + " " + error.message
           );
         }
       );
@@ -135,6 +134,9 @@ export default function PlacePage() {
           .find()
           .then((results) => {
             setRooms(results);
+            if (!currentRoom) {
+              setCurrentRoom(results[0]);
+            }
           })
           .catch((error) => {
             console.log(
@@ -149,7 +151,11 @@ export default function PlacePage() {
     function createRoomTab(room) {
       return (
         <li key={room.id}>
-          <a className="has-text-white" href="#/">
+          <a
+            className="has-text-white"
+            href="#/"
+            onClick={() => setCurrentRoom(room)}
+          >
             {room.get("name")}
           </a>
         </li>
@@ -266,6 +272,25 @@ export default function PlacePage() {
 
   function Roomtainer() {
 
+    function onRoomMetaChange() {
+      console.log("Room Data Change")
+    }
+
+    return (
+      <div className="mx-2">
+        <p className="title is-4 has-text-white">
+          {currentRoom?.get("name") ?? defaults.meta.placeholder}
+        </p>
+        <div className="tile is-ancestor mx-0">
+          <div className="tile is-parent is-4 box">
+            <div className="column">
+              <p className="title is-5">Notes</p>
+              <textarea className="textarea" onBlur={(event) => onRoomMetaChange(event, "notes")}></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   return (

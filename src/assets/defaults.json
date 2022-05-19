@@ -5,6 +5,7 @@
     "sqft": "XXXX",
     "bedbath": "X Beds, X Baths"
   },
+  "placeholder": "Hello World!",
   "rooms": [
     "Attic",
     "Bedroom",
